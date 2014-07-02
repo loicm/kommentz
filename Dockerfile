@@ -23,7 +23,7 @@ RUN apt-get -y install php5-fpm php5-cli php5-redis
 RUN echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini
 RUN echo "date.timezone = Europe/Paris;" >> etc/php5/fpm/php.ini
 
-ADD . /var/www/kommentz/
+RUN mkdir -p /var/www
 RUN chown -R www-data:www-data /var/www
 
 EXPOSE 80
