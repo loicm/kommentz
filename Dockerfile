@@ -12,6 +12,7 @@ ADD docker/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 # Install redis
 RUN apt-get -y install redis-server
+RUN sed -i -e "s/daemonize yes/daemonize no/g" /etc/redis/redis.conf
 
 # Install nginx
 RUN apt-get -y install nginx
@@ -20,8 +21,10 @@ ADD docker/nginx/default /etc/nginx/sites-available/default
 
 # Install php-fpm
 RUN apt-get -y install php5-fpm php5-cli php5-redis
-RUN echo "cgi.fix_pathinfo = 0;" >> /etc/php5/fpm/php.ini
-RUN echo "date.timezone = Europe/Paris;" >> etc/php5/fpm/php.ini
+RUN echo "cgi.fix_pathinfo = 0" >> /etc/php5/fpm/php.ini
+RUN echo "date.timezone = Europe/Paris" >> /etc/php5/fpm/php.ini
+RUN echo "daemonize = no" >> /etc/php5/fpm/php-fpm.conf
+
 
 RUN mkdir -p /var/www
 RUN chown -R www-data:www-data /var/www
